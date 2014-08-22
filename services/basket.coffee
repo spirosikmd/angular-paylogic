@@ -1,40 +1,27 @@
 'use strict'
 
 angular.module 'pta'
-  .factory 'Basket', ($resource, apiToken, baseUrl) ->
-    $resource baseUrl + 'baskets/:basketUid', {basketUid:"@basketUid"}, {
+  .factory 'Basket', ($resource, baseUrl) ->
+    $resource baseUrl + 'baskets/:basketUid', {basketUid:'@basketUid'}, {
       get: {
         method: 'GET',
-        isArray: true,
-        headers: {
-          "Authorization": "Basic " + apiToken
-        }
+        isArray: true
       },
       create: {
-        method: 'POST',
-        headers: {
-          "Authorization": "Basic " + apiToken,
-          "Content-Type": "application/json"
-        }
+        method: 'POST'
       },
       confirm: {
-        method: "POST",
+        method: 'POST',
         params: {
-          basketUid: "@basketUid"
+          basketUid: '@basketUid'
         },
-        url: baseUrl + "baskets/:basketUid/confirm",
-        headers: {
-          "Authorization": "Basic " + apiToken,
-        }
+        url: baseUrl + 'baskets/:basketUid/confirm'
       },
       cancel: {
-        method: "POST",
+        method: 'POST',
         params: {
-          basketUid: "@basketUid"
+          basketUid: '@basketUid'
         },
-        url: baseUrl + "baskets/:basketUid/cancel",
-        headers: {
-          "Authorization": "Basic " + apiToken,
-        }
+        url: baseUrl + 'baskets/:basketUid/cancel'
       }
     }

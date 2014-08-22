@@ -55,15 +55,15 @@
     'use strict';
 
     angular.module('demoApp', ['pta'])
-      .controller('mainController', function($scope, Event, Basket, Product) {
+      .controller('mainController', function($scope, paylogic) {
 
-        Event.get(function(response) {
+        paylogic.events.get(function(response) {
           $scope.events = response;
         });
 
         $scope.productUri = "https://ticketapi.sandbox.paylogic.com/products/30df20dd0b0e4bc58f0663edc8a4f640";
 
-        Product.get({
+        paylogic.products.get({
           uri__eq: $scope.productUri
         }, function(response) {
           $scope.product = response[0];
@@ -71,7 +71,7 @@
 
         var basketUri = "https://ticketapi.sandbox.paylogic.com/baskets/9f27c3aa05274644be9f3703bbfdc846";
 
-        Basket.get({
+        paylogic.baskets.get({
           uri__eq: basketUri
         }, function(response) {
           var basket = response[0];

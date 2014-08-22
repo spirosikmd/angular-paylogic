@@ -1,8 +1,8 @@
 'use strict'
 
 angular.module 'pta'
-  .factory 'Product', ($resource, apiToken, baseUrl) ->
-    $resource baseUrl + 'products', {}, {
+  .factory 'Merchant', ($resource, baseUrl) ->
+    $resource baseUrl + 'merchants', {}, {
       get: {
         method: 'GET',
         isArray: true

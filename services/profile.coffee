@@ -1,32 +1,21 @@
 'use strict'
 
-angular.module('pta')
-  .factory 'Profile', ($resource, apiToken, baseUrl) ->
+angular.module 'pta'
+  .factory 'Profile', ($resource, baseUrl) ->
     $resource baseUrl + 'profiles', {}, {
       get: {
         method: 'GET',
-        isArray: true,
-        headers: {
-          "Authorization": "Basic " + apiToken
-        }
+        isArray: true
       }
       create: {
-        method: "POST",
-        headers: {
-          "Authorization": "Basic " + apiToken,
-          "Content-Type": "application/json"
-        }
+        method: 'POST'
       }
       update: {
-        method: "PUT",
+        method: 'PUT',
         params: {
-          profileUid: "@profileUid",
-          profileRevision: "@profileRevision"
+          profileUid: '@profileUid',
+          profileRevision: '@profileRevision'
         },
-        url: baseUrl + "profiles/:profileUid/revisions/:profileRevision",
-        headers: {
-          "Authorization": "Basic " + apiToken,
-          "Content-Type": "application/json"
-        }
+        url: baseUrl + 'profiles/:profileUid/revisions/:profileRevision',
       }
     }

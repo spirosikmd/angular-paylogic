@@ -1,6 +1,8 @@
 'use strict'
 
-module = angular.module 'pta', [
+angular.module 'pta', [
   'ngResource',
   'base64'
 ]
+  .run ($http, apiToken) ->
+    $http.defaults.headers.common.Authorization = 'Basic ' + apiToken

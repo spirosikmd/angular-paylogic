@@ -1,34 +1,20 @@
 'use strict'
 
-angular.module('pta')
-  .factory 'Ticket', ($resource, apiToken, baseUrl) ->
-    $resource baseUrl + 'tickets/:ticketUid', {ticketUid:"@id"}, {
+angular.module 'pta'
+  .factory 'Ticket', ($resource, baseUrl) ->
+    $resource baseUrl + 'tickets/:ticketUid', {ticketUid:'@id'}, {
       get: {
         method: 'GET',
         isArray: true,
-        headers: {
-          "Authorization": "Basic " + apiToken
-        }
       },
       buyMultiple: {
         method: 'POST',
-        isArray: true,
-        headers: {
-          "Authorization": "Basic " + apiToken,
-          "Content-Type": "application/json"
-        }
+        isArray: true
       },
       buySingle: {
-        method: 'POST',
-        headers: {
-          "Authorization": "Basic " + apiToken,
-          "Content-Type": "application/json"
-        }
+        method: 'POST'
       }
       cancel: {
-        method: 'DELETE',
-        headers: {
-          "Authorization": "Basic " + apiToken
-        }
+        method: 'DELETE'
       }
     }
