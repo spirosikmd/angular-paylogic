@@ -20,7 +20,7 @@ credentials are not provided.
 
 ## How to use
 
-The service exposes a single component ``paylogic`` which cna be used in the following way to interact with resources.
+The service exposes a single component ``paylogic`` which can be used in the following way to interact with resources.
 
 ```javascript
 // Inject the pta module.
