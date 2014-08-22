@@ -12,6 +12,7 @@
 <body ng-app="demoApp">
 
   <div ng-controller="mainController">
+    <h1>Events</h1>
     <table>
       <thead>
         <tr>
@@ -30,6 +31,23 @@
         </tr>
       </tbody>
     </table>
+
+    <h1>Products</h1>
+    <p>Product data for product with uri: {{productUri}}.</p>
+    <dl>
+      <dt>Availability</dt>
+        <dd>{{product.availability}}</dd>
+      <dt>Max</dt>
+        <dd>{{product.constraints.max_quantity}}</dd>
+      <dt>Event</dt>
+        <dd>{{product.event}}</dd>
+      <dt>Name</dt>
+        <dd>{{product.name.en}}</dd>
+      <dt>Price</dt>
+        <dd>{{product.price.amount}}</dd>
+      <dt>Subtitle</dt>
+        <dd>{{product.subtitle.en}}</dd>
+    </dl>
   </div>
 
   <script type="text/javascript">
@@ -37,11 +55,19 @@
     'use strict';
 
     angular.module('demoApp', ['pta'])
-      .controller('mainController', function($scope, Event, Basket) {
+      .controller('mainController', function($scope, Event, Basket, Product) {
 
         Event.get(function(response) {
           $scope.events = response;
         });
+
+        $scope.productUri = "https://ticketapi.sandbox.paylogic.com/products/30df20dd0b0e4bc58f0663edc8a4f640";
+
+        Product.get({
+          uri__eq: $scope.productUri
+        }, function(response) {
+          $scope.product = response[0];
+        })
 
         var basketUri = "https://ticketapi.sandbox.paylogic.com/baskets/9f27c3aa05274644be9f3703bbfdc846";
 

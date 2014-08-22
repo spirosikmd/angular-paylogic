@@ -21,7 +21,7 @@ angular.module 'pta'
         method: "POST",
         params: {
           basketUid: "@basketUid"
-        }
+        },
         url: baseUrl + "baskets/:basketUid/confirm",
         headers: {
           "Authorization": "Basic " + apiToken,
@@ -31,7 +31,7 @@ angular.module 'pta'
         method: "POST",
         params: {
           basketUid: "@basketUid"
-        }
+        },
         url: baseUrl + "baskets/:basketUid/cancel",
         headers: {
           "Authorization": "Basic " + apiToken,

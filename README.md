@@ -10,7 +10,7 @@ An [AngularJS](https://angularjs.org/) service that encapsulates the functionali
 
 Run ``bower install`` from the root directory of the project to install all the dependencies.
 
-Then compile the CoffeeScript files with ``coffee --join angular-pta.js --compile **/*.coffee``
+Then compile the CoffeeScript files into one file with ``coffee --join angular-pta.js --compile **/*.coffee``.
 
 The example will not work for the public (unfortunately..) as it requires basic authentication to access the API, and
 credentials are not provided.
