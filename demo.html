@@ -11,14 +11,37 @@
 </head>
 <body ng-app="demoApp">
 
-  <div ng-controller="mainController"></div>
+  <div ng-controller="mainController">
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Subtitle</th>
+          <th>Description</th>
+          <th>Long description</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="event in events">
+          <td>{{event.title.en}}</td>
+          <td>{{event.subtitle.en}}</td>
+          <td>{{event.description.en}}</td>
+          <td>{{event.long_description.en}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <script type="text/javascript">
   (function() {
     'use strict';
 
     angular.module('demoApp', ['pta'])
-      .controller('mainController', function(Basket) {
+      .controller('mainController', function($scope, Event, Basket) {
+
+        Event.get(function(response) {
+          $scope.events = response;
+        });
 
         var basketUri = "https://ticketapi.sandbox.paylogic.com/baskets/9f27c3aa05274644be9f3703bbfdc846";
 
@@ -26,7 +49,7 @@
           uri__eq: basketUri
         }, function(response) {
           var basket = response[0];
-          console.log(basket.created);
+          console.log(basket.created, basket.uri);
         });
 
       });
