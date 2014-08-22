@@ -48,6 +48,42 @@
       <dt>Subtitle</dt>
         <dd>{{product.subtitle.en}}</dd>
     </dl>
+
+    <h1>Merchants</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>URI</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="merchant in merchants">
+          <td>{{merchant.name.en}}</td>
+          <td>{{merchant.uri}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h1>Orders</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Created</th>
+          <th>Reference</th>
+          <th>State</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="order in orders">
+          <td>{{order.created}}</td>
+          <td>{{order.reference}}</td>
+          <td>{{order.state}}</td>
+          <td>{{order.total.amount}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <script type="text/javascript">
@@ -75,7 +111,15 @@
           uri__eq: basketUri
         }, function(response) {
           var basket = response[0];
-          console.log(basket.created, basket.uri);
+          console.log('Basket created at:', basket.created, 'with uri', basket.uri);
+        });
+
+        paylogic.merchants.get(function(response) {
+          $scope.merchants = response;
+        });
+
+        paylogic.orders.get(function(response) {
+          $scope.orders = response;
         });
 
       });
