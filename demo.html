@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AngularJS PTA Demo</title>
+
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.min.js"></script>
+  <script src="bower_components/angular-base64/angular-base64.min.js"></script>
+
+  <script src="angular-pta.js"></script>
+  <script src="private.js"></script>
+</head>
+<body ng-app="demoApp">
+
+  <div ng-controller="mainController"></div>
+
+  <script type="text/javascript">
+  (function() {
+    'use strict';
+
+    angular.module('demoApp', ['pta'])
+      .controller('mainController', function(Basket) {
+
+        var basketUri = "https://ticketapi.sandbox.paylogic.com/baskets/9f27c3aa05274644be9f3703bbfdc846";
+
+        Basket.get({
+          uri__eq: basketUri
+        }, function(response) {
+          var basket = response[0];
+          console.log(basket.created);
+        });
+
+      });
+
+  }).call(this);
+  </script>
+</body>
+</html>
