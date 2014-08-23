@@ -2,11 +2,12 @@
 
 angular.module 'pta'
   .factory 'Basket', ($resource, baseUrl) ->
-    $resource baseUrl + 'baskets/:basketUid', {basketUid:'@basketUid'}, {
-      get: {
+    resourceUrl = baseUrl + 'baskets/:basketUid'
+    $resource resourceUrl, {}, {
+      filter: {
         method: 'GET',
         isArray: true
-      },
+      }
       create: {
         method: 'POST'
       },
@@ -15,13 +16,13 @@ angular.module 'pta'
         params: {
           basketUid: '@basketUid'
         },
-        url: baseUrl + 'baskets/:basketUid/confirm'
+        url: resourceUrl + '/confirm'
       },
       cancel: {
         method: 'POST',
         params: {
           basketUid: '@basketUid'
         },
-        url: baseUrl + 'baskets/:basketUid/cancel'
+        url: resourceUrl + '/cancel'
       }
     }

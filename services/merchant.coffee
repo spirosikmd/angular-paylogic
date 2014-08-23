@@ -2,8 +2,9 @@
 
 angular.module 'pta'
   .factory 'Merchant', ($resource, baseUrl) ->
-    $resource baseUrl + 'merchants', {}, {
-      get: {
+    resourceUrl = baseUrl + 'merchants'
+    $resource resourceUrl, {}, {
+      filter: {
         method: 'GET',
         isArray: true
       }

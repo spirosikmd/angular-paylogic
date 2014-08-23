@@ -1,9 +1,10 @@
 'use strict'
 
-angular.module('pta')
+angular.module 'pta'
   .factory 'Location', ($resource, baseUrl) ->
-    $resource baseUrl + 'locations', {}, {
-      get: {
+    resourceUrl = baseUrl + 'locations'
+    $resource resourceUrl, {}, {
+      filter: {
         method: 'GET',
         isArray: true
       }

@@ -2,7 +2,8 @@
 
 angular.module 'pta'
   .factory 'Ticket', ($resource, baseUrl) ->
-    $resource baseUrl + 'tickets/:ticketUid', {ticketUid:'@id'}, {
+    resourceUrl = baseUrl + 'tickets/:ticketUid'
+    $resource resourceUrl, {ticketUid:'@ticketUid'}, {
       get: {
         method: 'GET',
         isArray: true,

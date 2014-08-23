@@ -23,7 +23,7 @@
         </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="event in events">
+        <tr ng-repeat="event in events">
           <td>{{event.title.en}}</td>
           <td>{{event.subtitle.en}}</td>
           <td>{{event.description.en}}</td>
@@ -58,7 +58,7 @@
         </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="merchant in merchants">
+        <tr ng-repeat="merchant in merchants">
           <td>{{merchant.name.en}}</td>
           <td>{{merchant.uri}}</td>
         </tr>
@@ -76,7 +76,7 @@
         </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="order in orders">
+        <tr ng-repeat="order in orders">
           <td>{{order.created}}</td>
           <td>{{order.reference}}</td>
           <td>{{order.state}}</td>
@@ -84,7 +84,46 @@
         </tr>
       </tbody>
     </table>
+
+    <h1>Payment Methods</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Fee</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="paymentmethod in paymentmethods">
+          <td>{{paymentmethod.name}}</td>
+          <td>{{paymentmethod.description.en}}</td>
+          <td>{{paymentmethod.fee}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h1>Locations</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>City</th>
+          <th>Country</th>
+          <th>Zipcode</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="location in locations">
+          <td>{{location.name.en}}</td>
+          <td>{{location.city.en}}</td>
+          <td>{{location.country}}</td>
+          <td>{{location.zipcode}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+
 
   <script type="text/javascript">
   (function() {
@@ -93,13 +132,17 @@
     angular.module('demoApp', ['pta'])
       .controller('mainController', function($scope, paylogic) {
 
-        paylogic.events.get(function(response) {
+        paylogic.events.filter(function(response) {
           $scope.events = response;
+        });
+
+        paylogic.locations.filter(function(response) {
+          $scope.locations = response;
         });
 
         $scope.productUri = "https://ticketapi.sandbox.paylogic.com/products/30df20dd0b0e4bc58f0663edc8a4f640";
 
-        paylogic.products.get({
+        paylogic.products.filter({
           uri__eq: $scope.productUri
         }, function(response) {
           $scope.product = response[0];
@@ -107,19 +150,61 @@
 
         var basketUri = "https://ticketapi.sandbox.paylogic.com/baskets/9f27c3aa05274644be9f3703bbfdc846";
 
-        paylogic.baskets.get({
+        paylogic.baskets.filter({
           uri__eq: basketUri
         }, function(response) {
           var basket = response[0];
           console.log('Basket created at:', basket.created, 'with uri', basket.uri);
         });
 
-        paylogic.merchants.get(function(response) {
+        paylogic.merchants.filter(function(response) {
           $scope.merchants = response;
         });
 
-        paylogic.orders.get(function(response) {
+        // Get all orders.
+        paylogic.orders.filter(function(response) {
           $scope.orders = response;
+        });
+
+        // Get all payment methods.
+        paylogic.paymentmethods.filter(function(response) {
+          $scope.paymentmethods = response;
+        });
+
+        // Get a payment method quote for a specific basket.
+        paylogic.paymentmethods.quote({
+          basket: basketUri
+        }, function(response) {
+          console.log(response);
+        });
+
+        // Create a profile with sample json data.
+        paylogic.profiles.create({
+          "country": "NL",
+          "date_of_birth": "1976-05-24",
+          "email": "unicorn@galaxy.com",
+          "first_name": "Unicorn",
+          "gender": 1,
+          "last_name": "Melody"
+        }, function(response) {
+          var profile = response;
+          console.log('Profile created: ', profile);
+
+          // Update profile with new values.
+          paylogic.profiles.update({
+            profileUid: profile.uri.split('/')[4],
+            profileRevisionUid: profile.uri.split('/')[6],
+            country: "US"
+          })
+
+          // Filter profiles according to profile uri.
+          paylogic.profiles.filter({
+            uri__eq: profile.uri
+          }, function(response) {
+            var newProfile = response[0];
+            console.log('Is the same profile?', profile.uri == newProfile.uri);
+          });
+
         });
 
       });

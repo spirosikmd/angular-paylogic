@@ -2,8 +2,9 @@
 
 angular.module 'pta'
   .factory 'Event', ($resource, baseUrl) ->
-    $resource baseUrl + 'events', {}, {
-      get: {
+    resourceUrl = baseUrl + 'events'
+    $resource resourceUrl, {}, {
+      filter: {
         method: 'GET',
         isArray: true
       }

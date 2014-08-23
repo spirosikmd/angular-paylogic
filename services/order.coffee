@@ -2,8 +2,9 @@
 
 angular.module 'pta'
   .factory 'Order', ($resource, baseUrl) ->
-    $resource baseUrl + 'orders/:orderUid', {orderUid:'@orderUid'}, {
-      get: {
+    resourceUrl = baseUrl + 'orders/:orderUid'
+    $resource resourceUrl, {}, {
+      filter: {
         method: 'GET',
         isArray: true
       },
