@@ -3,7 +3,7 @@
 angular.module 'pta'
   .factory 'Profile', ($resource, baseUrl) ->
     resourceUrl = baseUrl + 'profiles/:profileUid'
-    $resource resourceUrl, {}, {
+    $resource resourceUrl, {profileUid: '@profileUid'}, {
       filter: {
         method: 'GET',
         isArray: true
@@ -12,11 +12,6 @@ angular.module 'pta'
         method: 'POST'
       },
       update: {
-        method: 'PUT',
-        params: {
-          profileUid: '@profileUid',
-          profileRevisionUid: '@profileRevisionUid',
-        },
-        url: resourceUrl + '/revisions/:profileRevisionUid',
+        method: 'PUT'
       }
     }
