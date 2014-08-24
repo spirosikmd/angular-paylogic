@@ -2,7 +2,7 @@
 
 angular.module 'pta'
   .factory 'PaymentMethod', ($resource, baseUrl) ->
-    resourceUrl = baseUrl + 'paymentmethods'
+    resourceUrl = baseUrl + 'paymentmethods/:paymentmethodUid'
     $resource resourceUrl, {}, {
       filter: {
         method: 'GET',
@@ -11,9 +11,6 @@ angular.module 'pta'
       quote: {
         method: 'GET',
         isArray: true,
-        params: {
-          basket: '@basket'
-        },
         url: resourceUrl + '/quotes'
       }
     }

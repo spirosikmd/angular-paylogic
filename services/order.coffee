@@ -9,10 +9,6 @@ angular.module 'pta'
         isArray: true
       },
       create: {
-        method: 'POST',
-        params: {
-          'basket': '@basketUri',
-          'paymentmethod': '@paymentmethodUri'
-        }
+        method: 'POST'
       }
     }

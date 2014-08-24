@@ -3,19 +3,19 @@
 angular.module 'pta'
   .factory 'Ticket', ($resource, baseUrl) ->
     resourceUrl = baseUrl + 'tickets/:ticketUid'
-    $resource resourceUrl, {ticketUid:'@ticketUid'}, {
-      get: {
+    $resource resourceUrl, {}, {
+      filter: {
         method: 'GET',
-        isArray: true,
+        isArray: true
       },
-      buyMultiple: {
+      create: {
+        method: 'POST'
+      },
+      createMany: {
         method: 'POST',
         isArray: true
       },
-      buySingle: {
-        method: 'POST'
-      }
-      cancel: {
-        method: 'DELETE'
+      update: {
+        method: 'PUT'
       }
     }

@@ -3,7 +3,7 @@
 angular.module 'pta'
   .factory 'Profile', ($resource, baseUrl) ->
     resourceUrl = baseUrl + 'profiles/:profileUid'
-    $resource resourceUrl, {profileUid: '@profileUid'}, {
+    $resource resourceUrl, {}, {
       filter: {
         method: 'GET',
         isArray: true

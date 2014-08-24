@@ -12,203 +12,147 @@
 <body ng-app="demoApp">
 
   <div ng-controller="mainController">
-    <h1>Events</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Subtitle</th>
-          <th>Description</th>
-          <th>Long description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="event in events">
-          <td>{{event.title.en}}</td>
-          <td>{{event.subtitle.en}}</td>
-          <td>{{event.description.en}}</td>
-          <td>{{event.long_description.en}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div ng-show="merchants[0]">
+      <h1>Merchants</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>URI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="merchant in merchants">
+            <td>{{merchant.name.en}}</td>
+            <td>{{merchant.uri}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-    <h1>Products</h1>
-    <p>Product data for product with uri: {{productUri}}.</p>
-    <dl>
-      <dt>Availability</dt>
-        <dd>{{product.availability}}</dd>
-      <dt>Max</dt>
-        <dd>{{product.constraints.max_quantity}}</dd>
-      <dt>Event</dt>
-        <dd>{{product.event}}</dd>
-      <dt>Name</dt>
-        <dd>{{product.name.en}}</dd>
-      <dt>Price</dt>
-        <dd>{{product.price.amount}}</dd>
-      <dt>Subtitle</dt>
-        <dd>{{product.subtitle.en}}</dd>
-    </dl>
+    <div ng-show="locations[0]">
+      <h1>Locations</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Zipcode</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="location in locations">
+            <td>{{location.name.en}}</td>
+            <td>{{location.city.en}}</td>
+            <td>{{location.country}}</td>
+            <td>{{location.zipcode}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-    <h1>Merchants</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>URI</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="merchant in merchants">
-          <td>{{merchant.name.en}}</td>
-          <td>{{merchant.uri}}</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h1>Orders</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Created</th>
-          <th>Reference</th>
-          <th>State</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="order in orders">
-          <td>{{order.created}}</td>
-          <td>{{order.reference}}</td>
-          <td>{{order.state}}</td>
-          <td>{{order.total.amount}}</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h1>Payment Methods</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Fee</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="paymentmethod in paymentmethods">
-          <td>{{paymentmethod.name}}</td>
-          <td>{{paymentmethod.description.en}}</td>
-          <td>{{paymentmethod.fee}}</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h1>Locations</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>City</th>
-          <th>Country</th>
-          <th>Zipcode</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="location in locations">
-          <td>{{location.name.en}}</td>
-          <td>{{location.city.en}}</td>
-          <td>{{location.country}}</td>
-          <td>{{location.zipcode}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div ng-show="event">
+      <h1>Order</h1>
+      <dl>
+        <dt><b>Event</b></dt>
+          <dd>{{event.title.en}}, {{event.uri}}</dd>
+        <dt ng-show="product"><b>Product</b></dt>
+          <dd ng-show="product">{{product.name.en}}, {{product.availability}}, {{product.uri}}</dd>
+        <dt ng-show="profile"><b>Profile</b></dt>
+          <dd ng-show="profile">{{profile.first_name}}, {{profile.last_name}}, {{profile.email}}, {{profile.gender}}</dd>
+        <dt ng-show="basket"><b>Basket</b></dt>
+          <dd ng-show="basket">{{basket.created}}, {{basket.uri}}</dd>
+        <dt ng-show="tickets[0]"><b>Tickets</b></dt>
+          <dd ng-repeat="ticket in tickets">{{ticket.name.en}}, {{ticket.price.currency}} {{ticket.price.amount}}, {{ticket.uri}}</dd>
+        <dt ng-show="order"><b>Order</b></dt>
+          <dd ng-show="order">{{order.reference}}, {{order.total.currency}} {{order.total.amount}} {{order.state}}</dd>
+          <dd ng-show="order">{{order.etickets}}</dd>
+          <dd ng-show="order">{{order.uri}}</dd>
+      </dl>
+    </div>
   </div>
 
 
   <script type="text/javascript">
   (function() {
-    'use strict';
+    "use strict";
 
-    angular.module('demoApp', ['pta'])
-      .controller('mainController', function($scope, paylogic) {
+    angular.module("demoApp", ["pta"])
+      .controller("mainController", function($scope, paylogic) {
 
-        paylogic.events.filter(function(response) {
-          $scope.events = response;
-        });
+        /*
+         * The following example demonstrates a complete buying process.
+         *
+         * We start by getting all events and we use one of them to buy tickets.
+         */
+        var events = paylogic.events.filter(function() {
+          $scope.event = events[1];
 
-        paylogic.locations.filter(function(response) {
-          $scope.locations = response;
-        });
+          // Get the products for this event.
+          var products = paylogic.products.filter({
+            event__eq: $scope.event.uri
+          }, function() {
 
-        $scope.productUri = "https://ticketapi.sandbox.paylogic.com/products/30df20dd0b0e4bc58f0663edc8a4f640";
+            // Use one product to buy tickets for.
+            $scope.product = products[0];
 
-        paylogic.products.filter({
-          uri__eq: $scope.productUri
-        }, function(response) {
-          $scope.product = response[0];
-        });
+            // Create a profile.
+            $scope.profile = paylogic.profiles.create({
+              "country": "NL",
+              "date_of_birth": "1976-05-24",
+              "email": "unicorn@galaxy.com",
+              "first_name": "Unicorn",
+              "gender": 1,
+              "last_name": "Melody"
+            }, function() {
 
-        var basketUri = "https://ticketapi.sandbox.paylogic.com/baskets/9f27c3aa05274644be9f3703bbfdc846";
+              // Now that we have a profile, we create a basket and we associate the profile with it.
+              $scope.basket = paylogic.baskets.create({
+                profile: $scope.profile.uri
+              }, function() {
 
-        paylogic.baskets.filter({
-          uri__eq: basketUri
-        }, function(response) {
-          var basket = response[0];
-          console.log('Basket ', basket.created, 'with uri', basket.uri);
-        });
+                // We create two tickets for this product and basket.
+                var data = [{
+                    basket: $scope.basket.uri,
+                    product: $scope.product.uri
+                  }, {
+                    basket: $scope.basket.uri,
+                    product: $scope.product.uri
+                }];
 
-        paylogic.merchants.filter(function(response) {
-          $scope.merchants = response;
-        });
+                $scope.tickets = paylogic.tickets.createMany(data, function() {
 
-        // Get all orders.
-        paylogic.orders.filter(function(response) {
-          $scope.orders = response;
-        });
+                  // Get the quotes for this basket.
+                  var quotes = paylogic.paymentmethods.quote({
+                    basket: $scope.basket.uri
+                  }, function() {
 
-        // Get all payment methods.
-        paylogic.paymentmethods.filter(function(response) {
-          $scope.paymentmethods = response;
-        });
+                    var quote = quotes[0];
 
-        paylogic.paymentmethods.quote({
-          basket: basketUri
-        }, function(response) {
-          console.log(response);
-        });
+                    // Finally create the order.
+                    $scope.order = paylogic.orders.create({
+                      basket: $scope.basket.uri,
+                      paymentmethod: quote.paymentmethod
+                    });
 
-        // Create a profile with sample json data.
-        paylogic.profiles.create({
-          'country': 'NL',
-          'date_of_birth': '1976-05-24',
-          'email': 'unicorn@galaxy.com',
-          'first_name': 'Unicorn',
-          'gender': 1,
-          'last_name': 'Melody'
-        }, function(response) {
-          var profile = response;
-          console.log('Profile created: ', profile);
+                  });
 
-          // Update profile with new values.
-          paylogic.profiles.update({
-            profileUid: profile.uri.split('/')[4]
-          }, {
-            country: 'US',
-            first_name: 'Blue Unicorn',
-          }, function(response) {
-            var updatedProfile = response;
-            console.log('Updated profile:', updatedProfile);
-          });
+                });
 
-          // Filter profiles according to profile uri.
-          paylogic.profiles.filter({
-            uri__eq: profile.uri
-          }, function(response) {
-            var newProfile = response[0];
-            console.log('Is the same profile?', profile.uri == newProfile.uri);
+              });
+
+            });
+
           });
 
         });
+
+        // Get a list of locations.
+        $scope.locations =  paylogic.locations.filter();
+
+        // Get a list of merchants.
+        $scope.merchants = paylogic.merchants.filter();
 
       });
 

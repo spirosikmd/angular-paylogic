@@ -2,7 +2,7 @@
 
 angular.module 'pta'
   .factory 'Event', ($resource, baseUrl) ->
-    resourceUrl = baseUrl + 'events'
+    resourceUrl = baseUrl + 'events/:eventUid'
     $resource resourceUrl, {}, {
       filter: {
         method: 'GET',
