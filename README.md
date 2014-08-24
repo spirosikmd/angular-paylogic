@@ -32,10 +32,8 @@ angular.module('app', ['pta'])
     // Will return all, as no filtering was specified.
     $scope.events = paylogic.events.filter();
 
-    var productUri = "https://ticketapi.sandbox.paylogic.com/products/30df20dd0b0e4bc58f0663edc8a4f640";
-
     $scope.product = paylogic.products.get({
-      uri__eq: productUri
+      productUid: "30df20dd0b0e4bc58f0663edc8a4f640"
     });
 
 });

@@ -110,14 +110,16 @@
             $scope.product = products[0];
 
             // Create a profile.
-            $scope.profile = paylogic.profiles.create({
+            var profileData = {
               "country": "NL",
               "date_of_birth": "1976-05-24",
               "email": "unicorn@galaxy.com",
               "first_name": "Unicorn",
               "gender": 1,
               "last_name": "Melody"
-            }, function() {
+            };
+
+            $scope.profile = paylogic.profiles.create(profileData, function() {
 
               // Now that we have a profile, we create a basket and we associate the profile with it.
               $scope.basket = paylogic.baskets.create({
@@ -125,7 +127,7 @@
               }, function() {
 
                 // We create two tickets for this product and basket.
-                var data = [{
+                var ticketData = [{
                     basket: $scope.basket.uri,
                     product: $scope.product.uri
                   }, {
@@ -133,7 +135,7 @@
                     product: $scope.product.uri
                 }];
 
-                $scope.tickets = paylogic.tickets.createMany(data, function() {
+                $scope.tickets = paylogic.tickets.createMany(ticketData, function() {
 
                   // Get the quotes for this basket.
                   var quotes = paylogic.paymentmethods.quote({
