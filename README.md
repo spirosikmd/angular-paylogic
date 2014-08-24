@@ -6,7 +6,7 @@ An [AngularJS](https://angularjs.org/) service that encapsulates the functionali
 
 ## Getting Started
 
-``angular-pta`` requires [Bower](http://bower.io/) and [CoffeeScript](http://coffeescript.org/).
+``angular-paylogic`` requires [Bower](http://bower.io/) and [CoffeeScript](http://coffeescript.org/).
 
 Run ``bower install`` from the root directory of the project to install all the dependencies.
 
@@ -20,7 +20,7 @@ credentials are not provided.
 
 ## How to use
 
-``angular-pta`` exposes a single ``paylogic`` component that can be used in the following way to interact
+``angular-paylogic`` exposes a single ``paylogic`` component that can be used in the following way to interact
 with resources.
 
 ```javascript
@@ -39,5 +39,5 @@ angular.module('app', ['angular-paylogic'])
 });
 ```
 
-There is a more [detailed example](https://github.com/spirosikmd/angular-pta/blob/master/demo.html) that goes through a
+There is a more [detailed example](https://github.com/spirosikmd/angular-paylogic/blob/master/demo.html) that goes through a
 complete buying process.
