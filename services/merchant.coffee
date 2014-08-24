@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module 'pta'
+angular.module 'angular-paylogic'
   .factory 'Merchant', ($resource, baseUrl) ->
     resourceUrl = baseUrl + 'merchants/:merchantUid'
     $resource resourceUrl, {}, {
