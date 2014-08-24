@@ -1,11 +1,11 @@
 {
-  "name": "angular-pta",
+  "name": "angular-paylogic",
   "version": "0.0.0",
   "authors": [
     "Spyros Ioakeimidis <spyrosikmd@gmail.com>"
   ],
   "description": "An AngularJS service that encapsulates the functionality provided by the Paylogic Ticketing API.",
-  "main": "pta.js",
+  "main": "angular-paylogic.js",
   "keywords": [
     "angularjs",
     "service",

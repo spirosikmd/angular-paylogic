@@ -10,7 +10,7 @@ An [AngularJS](https://angularjs.org/) service that encapsulates the functionali
 
 Run ``bower install`` from the root directory of the project to install all the dependencies.
 
-Then compile the CoffeeScript files into one file with ``coffee --join angular-pta.js --compile **/*.coffee``.
+Then compile the CoffeeScript files into one file with ``coffee --join angular-paylogic.js --compile **/*.coffee``.
 
 Start a web server, e.g. ``python -m SimpleHTTPServer`` from the root directory of the project and check the demo at
 [http://localhost:8000/demo.html](http://localhost:8000/demo.html).
@@ -25,7 +25,7 @@ with resources.
 
 ```javascript
 // Inject the pta module.
-angular.module('app', ['pta'])
+angular.module('app', ['angular-paylogic'])
   // Inject the paylogic service in a controller.
   .controller('mainController', function($scope, paylogic) {
 
