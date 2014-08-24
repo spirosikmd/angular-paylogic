@@ -1,5 +1,5 @@
-angular-pta
-===========
+angular-paylogic
+================
 
 An [AngularJS](https://angularjs.org/) service that encapsulates the functionality provided by the
 [Paylogic Ticketing API](https://doc.sandbox.paylogic.com/).
