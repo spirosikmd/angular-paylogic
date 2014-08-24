@@ -55,20 +55,32 @@
     <div ng-show="event">
       <h1>Order</h1>
       <dl>
-        <dt><b>Event</b></dt>
-          <dd>{{event.title.en}}, {{event.uri}}</dd>
-        <dt ng-show="product"><b>Product</b></dt>
-          <dd ng-show="product">{{product.name.en}}, {{product.availability}}, {{product.uri}}</dd>
-        <dt ng-show="profile"><b>Profile</b></dt>
-          <dd ng-show="profile">{{profile.first_name}}, {{profile.last_name}}, {{profile.email}}, {{profile.gender}}</dd>
-        <dt ng-show="basket"><b>Basket</b></dt>
-          <dd ng-show="basket">{{basket.created}}, {{basket.uri}}</dd>
-        <dt ng-show="tickets[0]"><b>Tickets</b></dt>
-          <dd ng-repeat="ticket in tickets">{{ticket.name.en}}, {{ticket.price.currency}} {{ticket.price.amount}}, {{ticket.uri}}</dd>
-        <dt ng-show="order"><b>Order</b></dt>
-          <dd ng-show="order">{{order.reference}}, {{order.total.currency}} {{order.total.amount}} {{order.state}}</dd>
-          <dd ng-show="order">{{order.etickets}}</dd>
-          <dd ng-show="order">{{order.uri}}</dd>
+        <div>
+          <dt><b>Event</b></dt>
+            <dd>{{event.title.en}}, {{event.uri}}</dd>
+        </div>
+        <div ng-show="product">
+          <dt><b>Product</b></dt>
+            <dd>{{product.name.en}}, {{product.availability}}, {{product.uri}}</dd>
+        </div>
+        <div ng-show="profile">
+          <dt><b>Profile</b></dt>
+            <dd>{{profile.first_name}}, {{profile.last_name}}, {{profile.email}}, {{profile.gender}}</dd>
+        </div>
+        <div ng-show="basket">
+          <dt><b>Basket</b></dt>
+            <dd>{{basket.created}}, {{basket.uri}}</dd>
+        </div>
+        <div>
+          <dt ng-show="tickets[0]"><b>Tickets</b></dt>
+            <dd ng-repeat="ticket in tickets">{{ticket.name.en}}, {{ticket.price.currency}} {{ticket.price.amount}}, {{ticket.uri}}</dd>
+        </div>
+        <div ng-show="order">
+          <dt><b>Order</b></dt>
+            <dd>{{order.reference}}, {{order.total.currency}} {{order.total.amount}} {{order.state}}</dd>
+            <dd>{{order.etickets}}</dd>
+            <dd>{{order.uri}}</dd>
+        </div>
       </dl>
     </div>
   </div>
