@@ -24,7 +24,7 @@ credentials are not provided.
 with resources.
 
 ```javascript
-// Inject the pta module.
+// Inject the angular-paylogic module.
 angular.module('app', ['angular-paylogic'])
   // Inject the paylogic service in a controller.
   .controller('mainController', function($scope, paylogic) {
@@ -32,6 +32,7 @@ angular.module('app', ['angular-paylogic'])
     // Will return all, as no filtering was specified.
     $scope.events = paylogic.events.filter();
 
+    // products.get works, even if it is not defined in Product service, as it is a standard method of $resource.
     $scope.product = paylogic.products.get({
       productUid: "30df20dd0b0e4bc58f0663edc8a4f640"
     });
@@ -39,5 +40,4 @@ angular.module('app', ['angular-paylogic'])
 });
 ```
 
-There is a more [detailed example](https://github.com/spirosikmd/angular-paylogic/blob/master/demo.html) that goes through a
-complete buying process.
+There is a more [detailed example](https://github.com/spirosikmd/angular-paylogic/blob/master/demo.html) that goes through a complete buying process.
